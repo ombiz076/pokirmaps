@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Rekapitulasi & Analisis POKIR DPRD - Kabupaten Pohuwato</title>
+
+  <!-- SheetJS Library untuk Ekspor Excel (.xlsx) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      color: #333;
+      margin: 20px;
+      background-color: #f8f9fa;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* KOP SURAT FORMAL */
+    .header-kop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 3px double #333;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo-kop { height: 65px; }
+
+    .text-kop { text-align: center; }
+    .text-kop h2 { margin: 0; font-size: 15px; font-weight: bold; text-transform: uppercase; }
+    .text-kop h3 { margin: 3px 0 0 0; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+    .text-kop p { margin: 3px 0 0 0; font-size: 10px; color: #555; }
+
+    /* TOMBOL ACTION (HILANG SAAT DICETAK) */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: #eef2f7;
+      padding: 10px 15px;
+      border-radius: 6px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .action-buttons-left {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-print { background: #2b5c8f; color: white; }
+    .btn-excel { background: #27ae60; color: white; }
+    .btn-geojson { background: #e67e22; color: white; }
+    .btn-logout { background: #e74c3c; color: white; }
+
+    /* JUDUL BAGIAN (SECTION HEADERS) */
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-left: 4px solid #2b5c8f;
+      padding-left: 10px;
+      margin: 25px 0 12px 0;
+      color: #2b5c8f;
+      background-color: #f0f4f8;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    /* BAGIAN A: KPI GRID */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .kpi-box {
+      border: 1px solid #dcdcdc;
+      padding: 10px;
+      border-radius: 4px;
+      background: #fafafa;
+      text-align: center;
+    }
+
+    .kpi-label { font-size: 9px; font-weight: bold; color: #666; text-transform: uppercase; }
+    .kpi-value { font-size: 13px; font-weight: bold; color: #111; margin-top: 4px; }
+
+    /* BAGIAN B & C: TABEL REKAPITULASI */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      font-size: 10px;
+    }
+
+    th, td {
+      border: 1px solid #777;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f3f6;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+
+    /* BAGIAN C: ANALISIS ANALITIS GRID */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .analysis-card {
+      border: 1px solid #ccc;
+      padding: 12px;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .analysis-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+      color: #2b5c8f;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    .narrative-box {
+      border: 1px solid #b8daff;
+      background-color: #f8fbff;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      color: #004085;
+      text-align: justify;
+    }
+
+    /* REGULASI MEDIA CETAK (A4 PRINT) */
+    @media print {
+      .action-bar { display: none !important; }
+      body { margin: 0; background: #fff; }
+      .container { padding: 0; box-shadow: none; width: 100%; max-width: 100%; }
+      th { background-color: #eee !important; -webkit-print-color-adjust: exact; }
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- BAR NAVIGASI (TIDAK TERCETAK) -->
+    <div class="action-bar">
+      <div class="action-buttons-left">
+        <button class="btn btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+        <button class="btn btn-excel" onclick="downloadExcel()">📥 Download Excel (.xlsx)</button>
+        <button class="btn btn-geojson" onclick="downloadGeoJSON()">🗺️ Download GeoJSON</button>
+      </div>
+      <div>
+        <span style="font-size: 11px; margin-right: 10px;">Status: <b>Sesi Privat Aktif</b></span>
+        <button class="btn btn-logout" onclick="logout()">Keluar (Logout)</button>
+      </div>
+    </div>
+
+    <!-- KOP DOKUMEN LAPORAN -->
+    <div class="header-kop">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7NULIY543CoyiHhxqijGsaYLcyvtn9HRnkV64Zakd3zxBx1VCa85Kk0sqyb6NZxG6KO5_QFB7OmsZnkTY9yIidMbFE3kzYiWSvfj6fQDy5ZB5vQkj7EJMWyu9BFrrbtue_qIrj2lCbSLfsm4rz4M15DX8XCYdkMIw-2zdwNvIRrspBiet0BllvDlyfhyphenhyphenF/s1600/logopohuwato.png" class="logo-kop" alt="Logo Pohuwato">
+      <div class="text-kop">
+        <h2>Pemerintah Kabupaten Pohuwato</h2>
+        <h3>Laporan Rekapitulasi & Analisis Kuantitatif Pokok-Pokok Pikiran DPRD</h3>
+        <p>Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah (BAPPPEDA)</p>
+      </div>
+    </div>
+
+    <!-- PARAMETER DOKUMEN -->
+    <div style="margin-bottom: 15px; font-size: 10px; display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+      <div>
+        <span><b>Tanggal Cetak:</b> <span id="tglCetak">-</span></span><br>
+        <span><b>Filter Data:</b> <span id="filterDesc">Semua Data POKIR Terfilter</span></span>
+      </div>
+      <div style="text-align: right;">
+        <span><b>Sifat Dokumen:</b> RAHASIA / PRIVAT INTERNAL</span><br>
+        <span><b>Aplikasi:</b> PETIK Pohuwato Monitoring System</span>
+      </div>
+    </div>
+
+    <!-- BAGIAN A: RINGKASAN -->
+    <div class="section-title">A. Ringkasan Utama</div>
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Total Usulan POKIR</div>
+        <div class="kpi-value" id="kpiTotalUsulan">0 Usulan</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Total Pagu Anggaran</div>
+        <div class="kpi-value" id="kpiTotalAnggaran">Rp 0</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Rata-rata / Usulan</div>
+        <div class="kpi-value" id="kpiRataRata">Rp 0</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Tingkat Akomodasi (Disetujui)</div>
+        <div class="kpi-value" id="kpiPersenSetuju">0%</div>
+      </div>
+    </div>
+
+    <!-- BAGIAN B: DAFTAR RINCIAN USULAN DPRD -->
+    <div class="section-title">B. Daftar Rincian Usulan DPRD</div>
+    <table>
+      <thead>
+        <tr>
+          <th width="30">No</th>
+          <th width="75">ID Usulan</th>
+          <th width="50">Tahun</th>
+          <th>Pengusul & Dapil</th>
+          <th>Bidang Usulan</th>
+          <th>Rincian Usulan</th>
+          <th>Kecamatan</th>
+          <th>Pagu Anggaran (Rp)</th>
+          <th width="85">Status</th>
+        </tr>
+      </thead>
+      <tbody id="tablePrintBody">
+        <tr><td colspan="9" class="text-center">Memuat data rincian usulan...</td></tr>
+      </tbody>
+    </table>
+
+    <!-- BAGIAN C: RINGKASAN EKSEKUTIF / ANALISIS -->
+    <div class="section-title page-break">C. Ringkasan Eksekutif & Analisis Kualitatif/Kuantitatif</div>
+    
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>1. Distribusi Anggaran per Bidang Usulan</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Bidang Usulan</th>
+              <th width="50">Usulan</th>
+              <th>Total Anggaran (Rp)</th>
+              <th width="45">%</th>
+            </tr>
+          </thead>
+          <tbody id="tableBidangBody">
+            <tr><td colspan="4" class="text-center">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="analysis-card">
+        <h4>2. Rekapitulasi Status Usulan</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Status Usulan</th>
+              <th width="50">Jumlah</th>
+              <th>Total Anggaran (Rp)</th>
+              <th width="45">%</th>
+            </tr>
+          </thead>
+          <tbody id="tableStatusBody">
+            <tr><td colspan="4" class="text-center">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>3. Top 5 Sebaran Usulan per Kecamatan</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Kecamatan</th>
+              <th width="60">Jumlah Usulan</th>
+              <th>Pagu Anggaran (Rp)</th>
+            </tr>
+          </thead>
+          <tbody id="tableKecamatanBody">
+            <tr><td colspan="3" class="text-center">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="analysis-card">
+        <h4>4. Top 5 Akumulasi Usulan Pengusul</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Pengusul</th>
+              <th width="50">Usulan</th>
+              <th>Pagu Anggaran (Rp)</th>
+            </tr>
+          </thead>
+          <tbody id="tablePengusulBody">
+            <tr><td colspan="3" class="text-center">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="narrative-box">
+      <b>Catatan Analisis Eksekutif BAPPPEDA:</b><br>
+      <span id="narasiEksekutif">
+        Memuat narasi analisis...
+      </span>
+    </div>
+
+    <!-- TANDA TANGAN FORMAL -->
+    <div style="margin-top: 35px; display: flex; justify-content: flex-end;">
+      <div style="text-align: center; width: 230px; font-size: 10px;">
+        <p>Marisa, <span id="tglTtd">-</span><br>Kepala BAPPPEDA Kab. Pohuwato</p>
+        <br><br><br>
+        <p><b>___________________________</b><br>NIP. ..............................................</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbxbJ2vrHJFsGhg5WOVFrE9L-DQQdRl9M9QP7xI-7m7J0NYXK11CZ8l532Tu5JCuOskvgw/exec"; 
+    const AUTH_TOKEN_KEY = "PETIK_PRIVAT_TOKEN";
+    let activePrintData = []; // Menampung data yang sedang aktif untuk di-download
+
+    function checkAuth() {
+      const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
+      if (!token) {
+        alert("Akses ditolak. Silakan login terlebih dahulu dari Dashboard PETIK.");
+        window.location.href = "index.html";
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem(AUTH_TOKEN_KEY);
+      localStorage.removeItem("PETIK_PRINT_DATA");
+      window.location.href = "index.html";
+    }
+
+    function renderData(data) {
+      if (!data || data.length === 0) {
+        alert("Tidak ada data usulan untuk dicetak.");
+        return;
+      }
+
+      activePrintData = data; // Simpan ke variabel global untuk proses ekspor
+
+      const tbody = document.getElementById("tablePrintBody");
+      tbody.innerHTML = "";
+
+      let totalAnggaran = 0;
+      let totalDisetujui = 0;
+
+      let rekapBidang = {};
+      let rekapStatus = {};
+      let rekapKecamatan = {};
+      let rekapPengusul = {};
+
+      data.forEach((item, index) => {
+        const anggaran = parseFloat(item['ANGGARAN']) || 0;
+        totalAnggaran += anggaran;
+
+        const statusStr = (item['STATUS'] || 'Lainnya').toString().trim();
+        const bidangStr = (item['BIDANG USULAN'] || 'Lainnya').toString().trim();
+        const kecStr = (item['KECAMATAN'] || 'Lainnya').toString().trim().toUpperCase();
+        const pengusulStr = (item['PENGUSUL'] || 'Lainnya').toString().trim();
+
+        if (statusStr.toLowerCase().includes('setuju') || statusStr.toLowerCase().includes('disetujui')) {
+          totalDisetujui++;
+        }
+
+        if (!rekapBidang[bidangStr]) rekapBidang[bidangStr] = { count: 0, anggaran: 0 };
+        rekapBidang[bidangStr].count++;
+        rekapBidang[bidangStr].anggaran += anggaran;
+
+        if (!rekapStatus[statusStr]) rekapStatus[statusStr] = { count: 0, anggaran: 0 };
+        rekapStatus[statusStr].count++;
+        rekapStatus[statusStr].anggaran += anggaran;
+
+        if (!rekapKecamatan[kecStr]) rekapKecamatan[kecStr] = { count: 0, anggaran: 0 };
+        rekapKecamatan[kecStr].count++;
+        rekapKecamatan[kecStr].anggaran += anggaran;
+
+        if (!rekapPengusul[pengusulStr]) rekapPengusul[pengusulStr] = { count: 0, anggaran: 0 };
+        rekapPengusul[pengusulStr].count++;
+        rekapPengusul[pengusulStr].anggaran += anggaran;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="text-center">${index + 1}</td>
+          <td class="text-center"><b>${item['ID USULAN'] || '-'}</b></td>
+          <td class="text-center">${item['TAHUN'] || '-'}</td>
+          <td><b>${item['PENGUSUL'] || '-'}</b><br><small>${item['DAPIL'] || '-'}</small></td>
+          <td>${item['BIDANG USULAN'] || '-'}</td>
+          <td>${item['USULAN'] || '-'}</td>
+          <td>${item['KECAMATAN'] || '-'}</td>
+          <td class="text-right">Rp ${anggaran.toLocaleString('id-ID')}</td>
+          <td class="text-center"><b>${item['STATUS'] || '-'}</b></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const count = data.length;
+      const rataRata = count > 0 ? (totalAnggaran / count) : 0;
+      const persenSetuju = count > 0 ? ((totalDisetujui / count) * 100).toFixed(1) : 0;
+
+      document.getElementById("kpiTotalUsulan").innerText = count + " Usulan";
+      document.getElementById("kpiTotalAnggaran").innerText = "Rp " + totalAnggaran.toLocaleString('id-ID');
+      document.getElementById("kpiRataRata").innerText = "Rp " + Math.round(rataRata).toLocaleString('id-ID');
+      document.getElementById("kpiPersenSetuju").innerText = persenSetuju + "%";
+
+      const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById("tglCetak").innerText = today;
+      document.getElementById("tglTtd").innerText = today;
+
+      // 1. Render Tabel Bidang
+      const tBidang = document.getElementById("tableBidangBody");
+      tBidang.innerHTML = "";
+      for (let b in rekapBidang) {
+        const pct = totalAnggaran > 0 ? ((rekapBidang[b].anggaran / totalAnggaran) * 100).toFixed(1) : 0;
+        tBidang.innerHTML += `
+          <tr>
+            <td>${b}</td>
+            <td class="text-center">${rekapBidang[b].count}</td>
+            <td class="text-right">Rp ${rekapBidang[b].anggaran.toLocaleString('id-ID')}</td>
+            <td class="text-center">${pct}%</td>
+          </tr>
+        `;
+      }
+
+      // 2. Render Tabel Status
+      const tStatus = document.getElementById("tableStatusBody");
+      tStatus.innerHTML = "";
+      for (let s in rekapStatus) {
+        const pct = totalAnggaran > 0 ? ((rekapStatus[s].anggaran / totalAnggaran) * 100).toFixed(1) : 0;
+        tStatus.innerHTML += `
+          <tr>
+            <td><b>${s}</b></td>
+            <td class="text-center">${rekapStatus[s].count}</td>
+            <td class="text-right">Rp ${rekapStatus[s].anggaran.toLocaleString('id-ID')}</td>
+            <td class="text-center">${pct}%</td>
+          </tr>
+        `;
+      }
+
+      // 3. Render Top 5 Kecamatan
+      const sortedKec = Object.keys(rekapKecamatan).sort((a,b) => rekapKecamatan[b].count - rekapKecamatan[a].count).slice(0, 5);
+      const tKec = document.getElementById("tableKecamatanBody");
+      tKec.innerHTML = "";
+      sortedKec.forEach(k => {
+        tKec.innerHTML += `
+          <tr>
+            <td>KEC. ${k}</td>
+            <td class="text-center">${rekapKecamatan[k].count}</td>
+            <td class="text-right">Rp ${rekapKecamatan[k].anggaran.toLocaleString('id-ID')}</td>
+          </tr>
+        `;
+      });
+
+      // 4. Render Top 5 Pengusul
+      const sortedPengusul = Object.keys(rekapPengusul).sort((a,b) => rekapPengusul[b].count - rekapPengusul[a].count).slice(0, 5);
+      const tPengusul = document.getElementById("tablePengusulBody");
+      tPengusul.innerHTML = "";
+      sortedPengusul.forEach(p => {
+        tPengusul.innerHTML += `
+          <tr>
+            <td>${p}</td>
+            <td class="text-center">${rekapPengusul[p].count}</td>
+            <td class="text-right">Rp ${rekapPengusul[p].anggaran.toLocaleString('id-ID')}</td>
+          </tr>
+        `;
+      });
+
+      // 5. GENERASI NARASI EKSEKUTIF (TOP PRIORITY & FISIK VS NON-FISIK)
+      const topKecName = sortedKec.length > 0 ? sortedKec[0] : "-";
+      const topPengusulName = sortedPengusul.length > 0 ? sortedPengusul[0] : "-";
+      
+      let topProject = null;
+      let maxProjectBudget = 0;
+      let anggaranFisik = 0;
+      let anggaranNonFisik = 0;
+
+      data.forEach(item => {
+        const ang = parseFloat(item['ANGGARAN']) || 0;
+        if (ang > maxProjectBudget) {
+          maxProjectBudget = ang;
+          topProject = item;
+        }
+
+        const bidangStr = (item['BIDANG USULAN'] || '').toString().toLowerCase();
+        const rincianStr = (item['USULAN'] || '').toString().toLowerCase();
+
+        if (bidangStr.includes('infra') || bidangStr.includes('fisik') || bidangStr.includes('pembangunan') || bidangStr.includes('pu') || rincianStr.includes('pembangunan') || rincianStr.includes('rehab')) {
+          anggaranFisik += ang;
+        } else {
+          anggaranNonFisik += ang;
+        }
+      });
+
+      const pctFisik = totalAnggaran > 0 ? ((anggaranFisik / totalAnggaran) * 100).toFixed(1) : 0;
+      const pctNonFisik = totalAnggaran > 0 ? ((anggaranNonFisik / totalAnggaran) * 100).toFixed(1) : 0;
+
+      let topProjectText = "-";
+      if (topProject) {
+        topProjectText = `<b>"${topProject['USULAN'] || '-'}"</b> oleh <b>${topProject['PENGUSUL'] || '-'}</b> (${topProject['KECAMATAN'] || '-'}) dengan nilai pagu <b>Rp ${maxProjectBudget.toLocaleString('id-ID')}</b>`;
+      }
+
+      document.getElementById("narasiEksekutif").innerHTML = `
+        Berdasarkan hasil analisis rekapitulasi data Pokok Pikiran (POKIR) DPRD Kabupaten Pohuwato, terakumulasi total <b>${count} usulan</b> dengan total pagu anggaran sebesar <b>Rp ${totalAnggaran.toLocaleString('id-ID')}</b> (rata-rata alokasi sebesar <b>Rp ${Math.round(rataRata).toLocaleString('id-ID')}</b> per usulan). 
+        Tingkat akomodasi usulan yang disetujui mencapai <b>${persenSetuju}%</b>.<br><br>
+
+        <b>Analisis Alokasi & Prioritas Usulan:</b>
+        <ul style="margin-top: 5px; padding-left: 18px;">
+          <li><b>Perbandingan Fisik vs Non-Fisik:</b> Alokasi pembangunan didominasi oleh program <b>Fisik/Infrastruktur sebesar ${pctFisik}%</b> (Rp ${anggaranFisik.toLocaleString('id-ID')}), sedangkan alokasi program <b>Non-Fisik (Ekonomi/Sosial/Budaya) sebesar ${pctNonFisik}%</b> (Rp ${anggaranNonFisik.toLocaleString('id-ID')}).</li>
+          <li><b>Top Priority Project:</b> Usulan dengan alokasi anggaran terbesar teridentifikasi pada kegiatan ${topProjectText}.</li>
+          <li><b>Wilayah & Pengusul Dominan:</b> Konsentrasi jumlah usulan terbanyak berada di <b>Kecamatan ${topKecName}</b>, dengan akumulasi usulan tertinggi disalurkan melalui <b>${topPengusulName}</b>.</li>
+        </ul>
+      `;
+    }
+
+    // 📥 FUNGSI DOWNLOAD EXCEL (.XLSX)
+    function downloadExcel() {
+      if (!activePrintData || activePrintData.length === 0) {
+        alert("Tidak ada data untuk diekspor.");
+        return;
+      }
+
+      // Format susunan kolom Excel
+      const excelRows = activePrintData.map((item, idx) => ({
+        "No": idx + 1,
+        "ID Usulan": item['ID USULAN'] || '',
+        "Tahun": item['TAHUN'] || '',
+        "Pengusul": item['PENGUSUL'] || '',
+        "Dapil": item['DAPIL'] || '',
+        "Bidang Usulan": item['BIDANG USULAN'] || '',
+        "Rincian Usulan": item['USULAN'] || '',
+        "Kecamatan": item['KECAMATAN'] || '',
+        "Pagu Anggaran (Rp)": parseFloat(item['ANGGARAN']) || 0,
+        "OPD Tujuan": item['OPD TUJUAN AKHIR'] || '',
+        "Status": item['STATUS'] || '',
+        "Latitude": item['LATITUDE'] || '',
+        "Longitude": item['LONGITUDE'] || ''
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(excelRows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Rekap POKIR");
+
+      const dateStr = new Date().toISOString().slice(0,10);
+      XLSX.writeFile(workbook, `Rekap_POKIR_Pohuwato_${dateStr}.xlsx`);
+    }
+
+    // 🗺️ FUNGSI DOWNLOAD GEOJSON
+    function downloadGeoJSON() {
+      if (!activePrintData || activePrintData.length === 0) {
+        alert("Tidak ada data untuk diekspor.");
+        return;
+      }
+
+      const features = [];
+
+      activePrintData.forEach(item => {
+        let lat = parseFloat(item['LATITUDE']);
+        let lng = parseFloat(item['LONGITUDE']);
+
+        if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+          features.push({
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [lng, lat] // Format Spasial GeoJSON: [Longitude, Latitude]
+            },
+            properties: {
+              id_usulan: item['ID USULAN'] || '',
+              tahun: item['TAHUN'] || '',
+              pengusul: item['PENGUSUL'] || '',
+              dapil: item['DAPIL'] || '',
+              bidang: item['BIDANG USULAN'] || '',
+              usulan: item['USULAN'] || '',
+              kecamatan: item['KECAMATAN'] || '',
+              anggaran: parseFloat(item['ANGGARAN']) || 0,
+              opd: item['OPD TUJUAN AKHIR'] || '',
+              status: item['STATUS'] || ''
+            }
+          });
+        }
+      });
+
+      const geojsonObj = {
+        type: "FeatureCollection",
+        features: features
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojsonObj, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const dateStr = new Date().toISOString().slice(0,10);
+      
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `Data_Spasial_POKIR_Pohuwato_${dateStr}.geojson`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function initPage() {
+      checkAuth();
+
+      const jsonStr = localStorage.getItem("PETIK_PRINT_DATA");
+      if (jsonStr) {
+        try {
+          const localData = JSON.parse(jsonStr);
+          if (localData && localData.length > 0) {
+            renderData(localData);
+            return;
+          }
+        } catch (e) {
+          console.warn("Gagal parse local storage, mengambil data via API...");
+        }
+      }
+
+      fetch(GAS_API_URL, { method: 'GET', mode: 'cors', redirect: 'follow' })
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === "success" && res.data) {
+            renderData(res.data);
+          } else {
+            alert("Gagal memuat data dari API.");
+          }
+        })
+        .catch(err => {
+          console.error("Error Fetch GAS:", err);
+          alert("Koneksi terputus saat mengambil data.");
+        });
+    }
+
+    window.onload = initPage;
+  </script>
+</body>
+</html>
