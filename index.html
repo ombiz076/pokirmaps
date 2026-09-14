@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POKIRMAPS - Peta Aspirasi Pohuwato</title>
+  <meta name="title" content="POKIRMAPS - Peta Aspirasi Pohuwato">
+  <meta name="description" content="Portal GIS interaktif Usulan POKIR DPRD Kabupaten Pohuwato. Transparansi dan monitoring geospasial usulan pembangunan daerah BAPPPEDA Kab. Pohuwato akurat.">
+
+  <meta name="keywords" content="POKIRMAPS Pohuwato, POKIR DPRD Pohuwato, BAPPPEDA Pohuwato, GIS Pohuwato, Satu Data Pohuwato, Peta Tematik Pohuwato, SPBE Pohuwato, Pokok Pikiran DPRD">
+  <meta name="author" content="BAPPPEDA Kabupaten Pohuwato">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Indonesian">
+  <meta name="geo.region" content="ID-GO">
+  <meta name="geo.placename" content="Kabupaten Pohuwato, Gorontalo">
+  <link rel="canonical" href="https://bapppeda.pohuwatokab.go.id/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bapppeda.pohuwatokab.go.id/">
+  <meta property="og:title" content="POKIRMAPS - Peta Aspirasi Pohuwato">
+  <meta property="og:description" content="Sistem Informasi Geospasial Monitoring Usulan Pokok-Pokok Pikiran (POKIR) DPRD Kabupaten Pohuwato terintegrasi data tematik daerah.">
+  <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuoyF2_6QSSFap0jcYnDI9q8PQt8wUUDWAo69vq46zuBVIZcE6DjqNVmfCkqGiap3F655PKr9VnqVu7BqJn4hpeGDJVQjkbJ4V1BoVBumkMSDoWr7cK0hRlA1mLApPlJZeA8iafp8PC4hgCLPIf0LVGufJQofB-rUWHDHkBC6dMfy1pM1iPr0LVCnxg5E-/s1600/OGIMAGE_1200x630.jpg">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:site_name" content="PETIK Pohuwato">
+
+<!-- ============================================================================== -->
+<!-- TWITTER CARD -->
+<!-- ============================================================================== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://bapppeda.pohuwatokab.go.id/">
+<meta name="twitter:title" content="POKIRMAPS - Peta Usulan Aspirasi POKIR Pohuwato ">
+<meta name="twitter:description" content="Monitoring Geospasial Pokok Pikiran DPRD Kab. Pohuwato berbasis GIS dan SPBE.">
+<meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuoyF2_6QSSFap0jcYnDI9q8PQt8wUUDWAo69vq46zuBVIZcE6DjqNVmfCkqGiap3F655PKr9VnqVu7BqJn4hpeGDJVQjkbJ4V1BoVBumkMSDoWr7cK0hRlA1mLApPlJZeA8iafp8PC4hgCLPIf0LVGufJQofB-rUWHDHkBC6dMfy1pM1iPr0LVCnxg5E-/s1600/OGIMAGE_1200x630.jpg">
+
+<!-- STRUCTURED DATA SCHEMA.ORG (Google Rich Snippet) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "POKIRMAPS Pohuwato",
+  "alternateName": "Peta Usulan Aspirasi Pokir Pohuwato",
+  "url": "https://pokir.bapppeda.pohuwatokab.go.id/",
+  "applicationCategory": "GovernmentApplication",
+  "operatingSystem": "All",
+  "author": {
+    "@type": "GovernmentOrganization",
+    "name": "BAPPPEDA Kabupaten Pohuwato",
+    "url": "https://bapppeda.pohuwatokab.go.id"
+  },
+  "description": "Aplikasi GIS Web Peta Terintegrasi Informasi Pokok Pikiran DPRD Kabupaten Pohuwato untuk monitoring dan pengawalan pembangunan daerah berbasis spasial.",
+  "provider": {
+    "@type": "GovernmentOrganization",
+    "name": "Pemerintah Kabupaten Pohuwato"
+  }
+}
+</script>
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCzRtC108P831QEqqiqnAWoLMFnP3cXrG0DZ0KHgKG4jD_Z_rla1GR_jQvGaK5L_UKMdHYA0gHME2Mp6PgiuUieRAqQXl5kr6sJrUUQkt5YXypJorcyk1cm1ExeWizKlzLPWe2OmtrwanWMVgye_ahek-v84XBxg2pnRZNs-lD200S8H01_ri_TpEOIjr3/s1600/pokirmaps_favicon_32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCzRtC108P831QEqqiqnAWoLMFnP3cXrG0DZ0KHgKG4jD_Z_rla1GR_jQvGaK5L_UKMdHYA0gHME2Mp6PgiuUieRAqQXl5kr6sJrUUQkt5YXypJorcyk1cm1ExeWizKlzLPWe2OmtrwanWMVgye_ahek-v84XBxg2pnRZNs-lD200S8H01_ri_TpEOIjr3/s1600/pokirmaps_favicon_32.png">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+  <style>
+    :root {
+      --primary-color: #2b5c8f;
+      --card-radius: 8px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    /* TOP NAVBAR */
+    .top-navbar {
+    background-color: #ffffff;
+    padding: 10px 24px; /* Sedikit dirapatkan padding atas-bawahnya */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border-radius: var(--card-radius);
+  }
+
+    .brand-logo { 
+    height: 54px; /* 👈 UBAH DARI 40px MENJADI 54px */
+    width: auto;  /* Memastikan rasio gambar tidak gepeng */
+    object-fit: contain;
+  }
+
+    
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-connecting { background-color: #f1c40f; }
+    .status-connected { background-color: #2ecc71; }
+    .status-error { background-color: #e74c3c; }
+
+    .hotlink-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: 1px solid var(--primary-color);
+      text-decoration: none;
+    }
+
+    /* BANNER HERO 2 KOLOM */
+    .hero-banner {
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      align-items: center; 
+    }
+
+    .hero-left {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .head-photo {
+      width: 115px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .head-text-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .head-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .hero-superscript {
+      font-size: 10px;
+      font-weight: 700;
+      color: #e67e22;          /* Warna oranye aksen khas status Alpha/Beta */
+      background-color: #fef5e7; /* Background chip tipis */
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #fad7a0;
+      vertical-align: super;
+      margin-left: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .head-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .hero-statement {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.5;
+      text-align: justify;
+      margin: 0;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 6px;
+      width: 100%;
+    }
+
+    .hero-right-img {
+      width: 100%;
+      height: auto;
+      max-height: 220px; 
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* SLICER FILTER */
+    .filter-container {
+      background: #ffffff;
+      padding: 15px 20px;
+      border-radius: var(--card-radius);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 130px;
+    }
+
+    .filter-group label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #666;
+    }
+
+    .filter-group select {
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 12px;
+    }
+
+    .btn-reset {
+      margin-top: 15px;
+      padding: 7px 15px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* KPI CARDS */
+    .kpi-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .kpi-title { font-size: 11px; color: #777; font-weight: bold; text-transform: uppercase; }
+    .kpi-value { font-size: 17px; font-weight: bold; color: #2c3e50; margin-top: 5px; }
+
+    /* DASHBOARD GRID & OPTIMASI BINGKAI PETA */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 580px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .chart-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      height: 550px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .leaflet-popup-content-wrapper {
+      max-height: 400px;
+      overflow-y: auto;
+      border-radius: 8px;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.25);
+    }
+
+    .leaflet-popup-content {
+      margin: 12px 14px;
+      line-height: 1.4;
+    }
+
+    /* TABEL CONTAINER */
+    .table-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .search-input {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      width: 280px;
+      font-size: 13px;
+    }
+
+    .table-wrapper { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+    }
+
+    th { background-color: #f8f9fa; color: #444; }
+
+    .col-usulan {
+      max-width: 280px;
+      white-space: normal !important;
+      word-wrap: break-word;
+      word-break: break-word;
+      text-align: justify;
+      line-height: 1.4;
+    }
+
+    .pengusul-box {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .pengusul-nama {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .pengusul-dapil {
+      font-size: 10px;
+      font-weight: bold;
+      color: #2b5c8f;
+      background-color: #ebf3fb;
+      padding: 2px 6px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .btn-location {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .pagination-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    .btn-page {
+      padding: 5px 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    /* BADGE STATUS WARNA-WARNI */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .status-disetujui { background-color: #e8f8f0; color: #27ae60; border: 1px solid #abebc6; }
+    .status-verifikasi { background-color: #ebf5fb; color: #2980b9; border: 1px solid #a9cce3; }
+    .status-dikembalikan { background-color: #fadbd8; color: #c0392b; border: 1px solid #f5b7b1; }
+    .status-pending { background-color: #fef9e7; color: #d35400; border: 1px solid #f9e79f; }
+    .status-default { background-color: #f2f4f4; color: #7f8c8d; border: 1px solid #d5dbdb; }
+
+    /* FOOTER STYLING */
+    .main-footer {
+      background-color: #ffffff;
+      margin-top: 40px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.03);
+      padding: 30px 25px 15px 25px;
+      color: #555;
+      font-size: 12px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+
+    .footer-brand { display: flex; flex-direction: column; gap: 10px; }
+    .footer-logo { height: 42px; width: fit-content; }
+    .footer-desc { line-height: 1.6; color: #666; text-align: justify; }
+
+    .footer-section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { text-decoration: none; color: #555; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--primary-color); }
+
+    .footer-bottom {
+      border-top: 1px solid #eeeeee;
+      padding-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #888;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* OPTIMASI RESPONSIVE MOBILE (TERBARU & PRESISI) */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+
+      /* Top Navbar */
+      .top-navbar { flex-direction: column; align-items: center; padding: 12px 15px; gap: 12px; }
+      .brand-box { justify-content: center; }
+      .brand-logo { height: 44px; }
+      .nav-links { justify-content: center; gap: 12px; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 8px 0; }
+      .nav-links a { font-size: 11px; }
+
+      .nav-right { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; width: 100%; }
+      .connection-status { font-size: 10px; padding: 5px 10px; flex: 1 1 100%; justify-content: center; box-sizing: border-box; }
+      .nav-right-buttons { display: flex; width: 100%; gap: 8px; }
+      .hotlink-btn, .btn-private-print { flex: 1; justify-content: center; text-align: center; font-size: 11px; padding: 8px 10px; box-sizing: border-box; white-space: nowrap; }
+
+      /* Hero Banner */
+      .hero-banner { grid-template-columns: 1fr; padding: 15px; }
+      .hero-left { flex-direction: column; align-items: center; text-align: center; }
+      .hero-statement { text-align: justify; font-size: 11px; }
+
+      /* Slicer Filter di Mobile */
+      .filter-container { padding: 12px; gap: 10px; }
+      .filter-group { min-width: 100%; }
+      .btn-reset { width: 100%; margin-top: 5px; margin-left: 0 !important; }
+
+      /* KPI Cards 2 Kolom di Mobile */
+      .kpi-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .kpi-card { padding: 10px; }
+      .kpi-title { font-size: 9px; }
+      .kpi-value { font-size: 14px; }
+
+      /* Peta & Grafik */
+      .dashboard-grid { grid-template-columns: 1fr; gap: 15px; }
+      #map { height: 380px; } /* 👈 Dioptimalkan agar peta pas di layar HP */
+      .chart-card { height: 350px; }
+
+      /* Tabel & Pencarian */
+      .table-header { flex-direction: column; align-items: stretch; gap: 10px; }
+      .search-input { width: 100%; box-sizing: border-box; }
+      
+      /* Footer */
+      .footer-content { grid-template-columns: 1fr; gap: 20px; }
+      .footer-desc { text-align: left; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <div class="top-navbar">
+    <div class="brand-box">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgroP4oMuYc51RLbaR1hC43oxyq3nWSxBXTPck4MHuvfw-uPvyYnHa7G36wn01FuM8DA-_muwq1j7hqFyPHkFBZ2_rpfBS0SfLaMnf-WeL6oVznJjBZatKtxLtV6BMhy5ke4fAsg4bAuO-7p2Ndvl5C4IdInKCu-I5_01fX1Wnzx_sAenIQoKZ80llin5yg/s1600/head_pokirmaps.png" alt="POKIRMAPS Pohuwato" class="brand-logo">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">NEWS</a></li>
+      <li><a href="#">SKM</a></li>
+      <li><a href="#">PPID</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="connection-status" id="connectionStatus">
+        <span class="status-dot status-connecting" id="statusDot"></span>
+        <span id="statusText">Menghubungkan...</span>
+      </div>
+
+      <div class="nav-right-buttons">
+        <button onclick="openPrivatePrintModal()" class="hotlink-btn btn-private-print" style="background:#27ae60; border-color:#27ae60; cursor:pointer;">
+          🔒 Cetak
+        </button>
+        <a href="https://bapppeda.pohuwatokab.go.id" target="_blank" class="hotlink-btn">
+          🔗 Login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER HERO 2 KOLOM -->
+  <div class="hero-banner">
+    <div class="hero-left">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLAf_RJNUGpUQJ9uqqpzOhXFhclo2mq4QmeqcvhE9NgiIk_2VYlDNia5OYW10OYeJrKcXQVd0oBNeAL9ClxfguAmumaIyWQP6teaQxWGXZHHlqqY0PXMfIlvb9sHwNuXe2nqWErynL8D5ligasDyh136XkFe7VSD3TASo3H3RmaV6ov7Wepq_PcLw3x-ID/s1600/kaban_rustam_maklumat.webp" alt="Kepala BAPPPEDA Pohuwato" class="head-photo">
+      
+      <div class="head-text-box">
+        <h3 class="head-title">POKIRMAPS <sup class="hero-superscript">α</sup></h3>
+        <span class="head-subtitle">PETA ASPIRASI BERBASIS SPASIAL</span>
+        <p class="hero-statement">
+          "POKIRMAPS (Peta Aspirasi Berbasis Spasial) adalah gagasan sederhana Bapppeda Kabupaten Pohuwato dalam mentransformasi data <i>Pokok-Pokok Pikiran DPRD</i> dari format tekstual menjadi format visual-spasial. Melalui pemetaan usulan berbasis koordinat, POKIRMAPS menyajikan sebaran, klaster, dan status tindak lanjut setiap usulan Pokir secara transparan dan akurat, sebagai wujud komitmen perencanaan berbasis <i>Informasi Geospasial</i> Kabupaten Pohuwato."
+        </p>
+        <p style="margin-top: 6px; font-size: 11px; font-style: italic; font-weight: 600; color: #555; text-align: left;">
+          — Rustam Meleng, SH,MH (Kepala BAPPPEDA)
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZSvgM-0RMNfK2bVC6j0oPAjOhvk-iKfnwnodt7cSUxE5MbimL5HKkRCPSpOvXRXDbuf7bgJ-kK1Na4exObZ9GqiEkrKx1-sS_nBDjHtr0OD89xBwBdAqcYvZ7kfTeUzYiATypW9PwKItDGknu5f2pjN1AYFcYhNNxlUsrFEuHsi8Cc1_dCgDID87iGG6N/s1600/Alpha%20version%20%281%29.webp" alt="Info Banner" class="hero-right-img">
+    </div>
+  </div>
+
+  <!-- SLICER FILTER -->
+  <div class="filter-container">
+    <div class="filter-group">
+      <label>TAHUN</label>
+      <select id="filterTahun" onchange="applyFilters()"><option value="">-- Semua Tahun --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>DAPIL</label>
+      <select id="filterDapil" onchange="applyFilters()"><option value="">-- Semua Dapil --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>PENGUSUL</label>
+      <select id="filterPengusul" onchange="applyFilters()"><option value="">-- Semua Pengusul --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>KECAMATAN</label>
+      <select id="filterKecamatan" onchange="applyFilters()"><option value="">-- Semua Kecamatan --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>BIDANG USULAN</label>
+      <select id="filterBidang" onchange="applyFilters()"><option value="">-- Semua Bidang --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>OPD TUJUAN AKHIR</label>
+      <select id="filterOpd" onchange="applyFilters()"><option value="">-- Semua OPD --</option></select>
+    </div>
+    <div class="filter-group">
+      <label>STATUS</label>
+      <select id="filterStatus" onchange="applyFilters()"><option value="">-- Semua Status --</option></select>
+    </div>
+    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+    <button class="btn-reset" onclick="shareFilterUrl()" style="background:#2980b9; margin-left: 6px;">🔗 Bagikan</button>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-container">
+    <div class="kpi-card">
+      <div class="kpi-title">TOTAL USULAN</div>
+      <div class="kpi-value" id="kpi-usulan">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">TOTAL ANGGARAN</div>
+      <div class="kpi-value" id="kpi-anggaran">Rp 0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">KECAMATAN TERBANYAK</div>
+      <div class="kpi-value" id="kpi-top-kecamatan">-</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">OPD TUJUAN DOMINAN</div>
+      <div class="kpi-value" id="kpi-top-opd">-</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD SPASIAL & GRAFIK -->
+  <div class="dashboard-grid">
+    <div id="map"></div>
+    <div class="chart-card">
+      <canvas id="statusChart"></canvas>
+    </div>
+  </div>
+
+  <!-- TABEL USULAN POKIR -->
+  <div class="table-container">
+    <div class="table-header">
+      <h3>Daftar Rincian Usulan POKIR DPRD</h3>
+      <input type="text" id="searchInput" class="search-input" placeholder="Cari usulan, pengusul, atau ID..." onkeyup="filterTable()">
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>ID Usulan</th>
+            <th>Tahun</th>
+            <th>Pengusul & Dapil</th>
+            <th>Bidang Usulan</th>
+            <th>Rincian Usulan</th>
+            <th>Kecamatan</th>
+            <th>Anggaran (Rp)</th>
+            <th>Status</th>
+            <th>Lokasi</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="pagination-box">
+      <span id="pageInfo">Menampilkan 0 data</span>
+      <div>
+        <button id="btnPrev" class="btn-page" onclick="changePage(-1)">Sebelumnya</button>
+        <span id="pageNumbers" style="margin: 0 10px;">Halaman 1</span>
+        <button id="btnNext" class="btn-page" onclick="changePage(1)">Berikutnya</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7NULIY543CoyiHhxqijGsaYLcyvtn9HRnkV64Zakd3zxBx1VCa85Kk0sqyb6NZxG6KO5_QFB7OmsZnkTY9yIidMbFE3kzYiWSvfj6fQDy5ZB5vQkj7EJMWyu9BFrrbtue_qIrj2lCbSLfsm4rz4M15DX8XCYdkMIw-2zdwNvIRrspBiet0BllvDlyfhyphenhyphenF/s1600/logopohuwato.png" alt="Logo Pohuwato" class="footer-logo">
+        <p class="footer-desc">
+          <b>POKIRMAPS</b>- <i>Pokir Terpetakan, Pembangunan Terarah</i>. Adalah gagasan sederhana Bapppeda Kabupaten Pohuwato dalam mentransformasi data <i>Pokok-Pokok Pikiran DPRD</i> dari format tekstual menjadi format visual-spasial. Melalui pemetaan usulan berbasis koordinat, <b>POKIRMAPS</b> menyajikan sebaran, klaster, dan status tindak lanjut setiap usulan Pokir secara transparan dan akurat, sebagai wujud komitmen perencanaan berbasis <i>Informasi Geospasial</i> Kabupaten Pohuwato.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-section-title">Tautan Pintas</div>
+        <ul class="footer-links">
+          <li><a href="https://bapppeda.pohuwatokab.go.id" target="_blank">🌐 Portal Resmi BAPPPEDA</a></li>
+          <li><a href="https://pohuwatokab.go.id" target="_blank">🏛️ Pemkab Pohuwato</a></li>
+          <li><a href="https://bapppeda.pohuwatokab.go.id/skm">📋 SKM BAPPPEDA</a></li>
+          <li><a href="https://bapppeda.pohuwatokab.go.id/ppid">ℹ️ Layanan PPID</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-section-title">Kontak Kami</div>
+        <p style="margin: 0 0 6px 0; line-height: 1.5;">
+          <b>BAPPPEDA Kabupaten Pohuwato</b><br>
+          Kawasan Blok Plan Perkantoran Marisa, Kab. Pohuwato, Gorontalo.
+        </p>
+        <p style="margin: 0; line-height: 1.5;">
+          📧 Email: bapppeda.pohuwato@gmail.com
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 <b>BAPPPEDA Pohuwato</b>. Hak Cipta Dilindungi Undang-Undang.</div>
+      <div>Dikembangkan untuk Monitoring POKIR DPRD Kab. Pohuwato</div>
+    </div>
+  </footer>
+
+  <!-- LEAFLET & SPATIAL LIBRARIES -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbxbJ2vrHJFsGhg5WOVFrE9L-DQQdRl9M9QP7xI-7m7J0NYXK11CZ8l532Tu5JCuOskvgw/exec"; 
+    let map, geoJsonLayer, defaultBounds;
+    let rawData = [];
+    let currentFilteredData = [];
+    let searchedData = [];
+    let heatLayer = null;
+    let currentHeatmapMode = 'off';
+    
+    // Penampung Data Spasial di Latar Belakang
+    let rawPolaRuangGeoJson = null;
+    let rawStuntingGeoJson = null;
+
+    let markersLayerGroup = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      spiderfyDistanceMultiplier: 1.5,
+      disableClusteringAtZoom: 16
+    });
+
+    let statusChartInstance = null;
+    let currentPage = 1;
+    const rowsPerPage = 20;
+
+    function initMap() {
+      map = L.map('map').setView([-0.46, 121.88], 10);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+
+      // 1. TOMBOL HOME (POJOK KIRI ATAS)
+      const homeControl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function () {
+          const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+          container.innerHTML = '<a href="#" style="font-size:16px; text-decoration:none; text-align:center; display:block; background:#fff; width:30px; height:30px; line-height:30px;" title="Reset Zoom Peta">🏠</a>';
+          container.onclick = function (e) {
+            e.preventDefault();
+            if (defaultBounds) map.fitBounds(defaultBounds);
+          };
+          return container;
+        }
+      });
+      map.addControl(new homeControl());
+
+      // 2. KONTROL HEATMAP
+      const heatmapControl = L.Control.extend({
+        options: { position: 'topright' },
+        onAdd: function () {
+          const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+          container.style.backgroundColor = '#ffffff';
+          container.style.padding = '5px 8px';
+          container.style.borderRadius = '4px';
+          container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
+          container.style.display = 'flex';
+          container.style.gap = '5px';
+          container.style.alignItems = 'center';
+
+          container.innerHTML = `
+            <span style="font-size:10px; font-weight:bold; color:#555; margin-right:3px;">HEATMAP:</span>
+            <button id="btnHeatOff" onclick="setHeatmapMode('off')" style="cursor:pointer; border:1px solid #ccc; background:#e74c3c; color:#fff; border-radius:3px; padding:3px 7px; font-size:11px; font-weight:bold;" title="Matikan Heatmap">❌ Off</button>
+            <button id="btnHeatCount" onclick="setHeatmapMode('count')" style="cursor:pointer; border:1px solid #ccc; background:#fff; color:#333; border-radius:3px; padding:3px 7px; font-size:11px; font-weight:bold;" title="Kepadatan Usulan">🔥 Usulan</button>
+            <button id="btnHeatBudget" onclick="setHeatmapMode('budget')" style="cursor:pointer; border:1px solid #ccc; background:#fff; color:#333; border-radius:3px; padding:3px 7px; font-size:11px; font-weight:bold;" title="Kepadatan Anggaran">💰 Anggaran</button>
+          `;
+          
+          L.DomEvent.disableClickPropagation(container);
+          return container;
+        }
+      });
+      map.addControl(new heatmapControl());
+
+      // 🔄 PERBAIKAN UTAMA: DETEKSI TOMBOL SILANG (✕) ATAU AREA KOSONG PETA
+      map.on('popupopen', function(e) {
+        const popupContainer = e.popup.getElement();
+        if (popupContainer) {
+          const closeButton = popupContainer.querySelector('.leaflet-popup-close-button');
+          if (closeButton) {
+            closeButton.onclick = function() {
+              if (defaultBounds) {
+                map.flyToBounds(defaultBounds, { duration: 1.2 });
+              } else {
+                map.flyTo([-0.461, 121.884], 10, { duration: 1.2 });
+              }
+            };
+          }
+        }
+      });
+    }
+
+    function setHeatmapMode(mode) {
+      currentHeatmapMode = mode;
+
+      const btnOff = document.getElementById('btnHeatOff');
+      const btnCount = document.getElementById('btnHeatCount');
+      const btnBudget = document.getElementById('btnHeatBudget');
+
+      if (btnOff && btnCount && btnBudget) {
+        btnOff.style.background = (mode === 'off') ? '#e74c3c' : '#fff';
+        btnOff.style.color = (mode === 'off') ? '#fff' : '#333';
+
+        btnCount.style.background = (mode === 'count') ? '#e67e22' : '#fff';
+        btnCount.style.color = (mode === 'count') ? '#fff' : '#333';
+
+        btnBudget.style.background = (mode === 'budget') ? '#27ae60' : '#fff';
+        btnBudget.style.color = (mode === 'budget') ? '#fff' : '#333';
+      }
+
+      updateHeatmapLayer();
+    }
+
+    function parseCoordinate(val) {
+      if (!val) return NaN;
+      let str = val.toString().trim();
+      let parts = str.split('.');
+      if (parts.length > 2) {
+        str = parts[0] + '.' + parts.slice(1).join('');
+      }
+      return parseFloat(str);
+    }
+
+    // 🔍 SPATIAL LOOKUP: KECAMATAN
+    function getKecamatanFromCoordinates(lat, lng) {
+      if (!geoJsonLayer || typeof turf === 'undefined') return 'Memuat Data Spasial...';
+      const point = turf.point([lng, lat]);
+      let kecDitemukan = 'Luar Wilayah / Tidak Terdeteksi';
+
+      geoJsonLayer.eachLayer(layer => {
+        if (layer.feature && layer.feature.geometry) {
+          if (turf.booleanPointInPolygon(point, layer.feature) && layer.feature.properties) {
+            kecDitemukan = layer.feature.properties.KECAMATAN || layer.feature.properties.Kecamatan || 'TIDAK TERDETEKSI';
+          }
+        }
+      });
+      return kecDitemukan.toUpperCase();
+    }
+
+    // 🏗️ SPATIAL LOOKUP: POLA RUANG
+    function getPolaRuangFromCoordinates(lat, lng) {
+      if (!rawPolaRuangGeoJson || typeof turf === 'undefined') return { namobj: '-', kodkws: '-' };
+      const point = turf.point([lng, lat]);
+      let res = { namobj: 'Luar Kawasan / Unmapped', kodkws: '-' };
+
+      for (let feature of rawPolaRuangGeoJson.features) {
+        if (feature.geometry && turf.booleanPointInPolygon(point, feature)) {
+          res.namobj = feature.properties.NAMOBJ || '-';
+          res.kodkws = feature.properties.KODKWS || '-';
+          break;
+        }
+      }
+      return res;
+    }
+
+    // 📊 SPATIAL LOOKUP: KEMISKINAN & STUNTING
+    function getStuntingFromCoordinates(lat, lng) {
+      if (!rawStuntingGeoJson || typeof turf === 'undefined') return { kemiskinan: '-', stunting: '-' };
+      const point = turf.point([lng, lat]);
+      let res = { kemiskinan: 'TIDAK TERDETEKSI', stunting: 'TIDAK TERDETEKSI' };
+
+      for (let feature of rawStuntingGeoJson.features) {
+        if (feature.geometry && turf.booleanPointInPolygon(point, feature)) {
+          res.kemiskinan = feature.properties.KEMISKINAN || '-';
+          res.stunting = feature.properties.STUNTING || '-';
+          break;
+        }
+      }
+      return res;
+    }
+
+    function loadGeoJson() {
+      fetch('assets/administrasi_desa.geojson')
+        .then(res => res.json())
+        .then(geoData => {
+          if (geoJsonLayer) map.removeLayer(geoJsonLayer);
+
+          geoJsonLayer = L.geoJSON(geoData, {
+            style: {
+              fillColor: '#FFEDA0',
+              weight: 1.5,
+              opacity: 0.9,
+              color: '#e74c3c',
+              fillOpacity: 0.2
+            },
+            onEachFeature: function(feature, layer) {
+              if (feature && feature.properties) {
+                const namaDesa = feature.properties.DESA || "TIDAK TERDETEKSI";
+                const namaKec  = feature.properties.KECAMATAN || "TIDAK TERDETEKSI";
+
+                layer.bindPopup(`
+                  <div style="font-size:12px; line-height:1.5; padding:2px;">
+                    <b style="color:#2b5c8f; font-size:14px;">DESA ${namaDesa.toString().toUpperCase()}</b><br>
+                    <span>Kecamatan: <b>${namaKec.toString().toUpperCase()}</b></span>
+                  </div>
+                `);
+              }
+
+              layer.on({
+                mouseover: function(e) {
+                  var l = e.target;
+                  l.setStyle({ fillOpacity: 0.45, weight: 2.5, fillColor: '#f1c40f' });
+                },
+                mouseout: function(e) {
+                  geoJsonLayer.resetStyle(e.target);
+                }
+              });
+            }
+          }).addTo(map);
+
+          geoJsonLayer.bringToBack();
+          defaultBounds = geoJsonLayer.getBounds();
+          map.fitBounds(defaultBounds);
+        })
+        .catch(err => {
+          console.warn("GeoJSON desa tidak dimuat, menggunakan default view:", err);
+          map.setView([-0.461, 121.884], 10);
+        });
+    }
+
+    // 📥 BACA GEOJSON TEMATIK HANYA DI MEMORI
+    function loadBackgroundThematics() {
+      fetch('assets/pola_ruang.geojson')
+        .then(res => res.json())
+        .then(data => { rawPolaRuangGeoJson = data; })
+        .catch(err => console.warn("Pola ruang tidak ditemukan untuk lookup:", err));
+
+      fetch('assets/tematik_kemiskinan_stunting.geojson')
+        .then(res => res.json())
+        .then(data => { rawStuntingGeoJson = data; })
+        .catch(err => console.warn("Kemiskinan/Stunting tidak ditemukan untuk lookup:", err));
+    }
+
+    function loadPokirData() {
+      initMap();
+      updateConnectionStatus('connecting', 'Connecting..');
+
+      loadGeoJson();
+      loadBackgroundThematics(); 
+
+      fetch(GAS_API_URL)
+        .then(res => {
+          if (!res.ok) throw new Error("Network response not ok: " + res.status);
+          return res.json();
+        })
+        .then(res => {
+          if (res.status === "error") {
+            updateConnectionStatus('error', 'Gagal Memuat Data');
+            alert("Gagal memuat data: " + res.message);
+            return;
+          }
+          rawData = res.data;
+          updateConnectionStatus('connected', 'Connected..');
+
+          populateFilterDropdowns(rawData);
+          readUrlParamsAndApply();
+          applyFilters();
+        })
+        .catch(err => {
+          console.error("Error Fetch GAS:", err);
+          updateConnectionStatus('error', 'Koneksi Terputus');
+        });
+    }
+
+    function populateFilterDropdowns(data) {
+      const getUnique = (key) => Array.from(new Set(data.map(item => (item[key] || '').toString().trim()).filter(Boolean))).sort();
+
+      fillSelectOptions('filterTahun', getUnique('TAHUN'));
+      fillSelectOptions('filterDapil', getUnique('DAPIL'));
+      fillSelectOptions('filterPengusul', getUnique('PENGUSUL'));
+      fillSelectOptions('filterKecamatan', getUnique('KECAMATAN'));
+      fillSelectOptions('filterBidang', getUnique('BIDANG USULAN'));
+      fillSelectOptions('filterOpd', getUnique('OPD TUJUAN AKHIR'));
+      fillSelectOptions('filterStatus', getUnique('STATUS'));
+    }
+
+    function fillSelectOptions(elementId, items) {
+      const select = document.getElementById(elementId);
+      select.innerHTML = select.options[0].outerHTML;
+      items.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item;
+        opt.innerText = item;
+        select.appendChild(opt);
+      });
+    }
+
+    function applyFilters() {
+      const fTahun = document.getElementById('filterTahun').value;
+      const fDapil = document.getElementById('filterDapil').value;
+      const fPengusul = document.getElementById('filterPengusul').value;
+      const fKec = document.getElementById('filterKecamatan').value;
+      const fBidang = document.getElementById('filterBidang').value;
+      const fOpd = document.getElementById('filterOpd').value;
+      const fStatus = document.getElementById('filterStatus').value;
+
+      currentFilteredData = rawData.filter(item => {
+        const mTahun = !fTahun || String(item['TAHUN'] || '').trim() === fTahun;
+        const mDapil = !fDapil || String(item['DAPIL'] || '').trim() === fDapil;
+        const mPengusul = !fPengusul || String(item['PENGUSUL'] || '').trim() === fPengusul;
+        const mKec = !fKec || String(item['KECAMATAN'] || '').trim().toUpperCase() === fKec.toUpperCase();
+        const mBidang = !fBidang || String(item['BIDANG USULAN'] || '').trim() === fBidang;
+        const mOpd = !fOpd || String(item['OPD TUJUAN AKHIR'] || '').trim() === fOpd;
+        const mStatus = !fStatus || String(item['STATUS'] || '').trim().toLowerCase() === fStatus.toLowerCase();
+
+        return mTahun && mDapil && mPengusul && mKec && mBidang && mOpd && mStatus;
+      });
+
+      currentPage = 1;
+      searchedData = currentFilteredData;
+      recalculateAndRender(currentFilteredData);
+
+      updateUrlParams();
+    }
+
+    function recalculateAndRender(filteredData) {
+      let totalAnggaran = 0;
+      let statusRekap = {};
+      let kecamatanRekap = {};
+      let opdRekap = {};
+
+      filteredData.forEach(item => {
+        const anggaran = parseFloat(item['ANGGARAN']) || 0;
+        totalAnggaran += anggaran;
+
+        const status = item['STATUS'] ? item['STATUS'].toString().trim() : 'Lainnya';
+        statusRekap[status] = (statusRekap[status] || 0) + 1;
+
+        const kec = item['KECAMATAN'] ? item['KECAMATAN'].toString().trim().toUpperCase() : 'TIDAK TERDETEKSI';
+        kecamatanRekap[kec] = (kecamatanRekap[kec] || 0) + 1;
+
+        const opd = item['OPD TUJUAN AKHIR'] ? item['OPD TUJUAN AKHIR'].toString().trim() : 'BELUM DITENTUKAN';
+        opdRekap[opd] = (opdRekap[opd] || 0) + 1;
+      });
+
+      document.getElementById('kpi-usulan').innerText = filteredData.length;
+      document.getElementById('kpi-anggaran').innerText = "Rp " + totalAnggaran.toLocaleString('id-ID');
+
+      let topKec = "-", maxKec = 0;
+      for (let k in kecamatanRekap) {
+        if (kecamatanRekap[k] > maxKec) { maxKec = kecamatanRekap[k]; topKec = `${k} (${maxKec})`; }
+      }
+      document.getElementById('kpi-top-kecamatan').innerText = topKec;
+
+      let topOpd = "-", maxOpd = 0;
+      for (let o in opdRekap) {
+        if (opdRekap[o] > maxOpd) { maxOpd = opdRekap[o]; topOpd = `${o} (${maxOpd})`; }
+      }
+      document.getElementById('kpi-top-opd').innerText = topOpd;
+
+      plotMarkers(filteredData);
+      renderChart(statusRekap);
+      renderTable(searchedData);
+      
+      updateHeatmapLayer();
+    }
+
+    // 📍 PLOT MARKERS DENGAN AUTOPAN PADDING
+    function plotMarkers(data) {
+      if (!map) return;
+      markersLayerGroup.clearLayers();
+
+      data.forEach(item => {
+        const lat = parseCoordinate(item['LATITUDE']);
+        const lng = parseCoordinate(item['LONGITUDE']);
+
+        if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+          const marker = L.marker([lat, lng]);
+          marker.options.idUsulan = item['ID USULAN'];
+
+          // Lookup Spasial Otomatis
+          const namaKecSpasial = getKecamatanFromCoordinates(lat, lng);
+          const polaRuangInfo = getPolaRuangFromCoordinates(lat, lng);
+          const stuntingInfo = getStuntingFromCoordinates(lat, lng);
+
+          const valKemiskinan = (stuntingInfo.kemiskinan && stuntingInfo.kemiskinan !== '-' && stuntingInfo.kemiskinan !== 'TIDAK TERDETEKSI') 
+            ? `${stuntingInfo.kemiskinan}%` 
+            : stuntingInfo.kemiskinan;
+            
+          const valStunting = (stuntingInfo.stunting && stuntingInfo.stunting !== '-' && stuntingInfo.stunting !== 'TIDAK TERDETEKSI') 
+            ? `${stuntingInfo.stunting}%` 
+            : stuntingInfo.stunting;
+
+          marker.bindPopup(`
+            <div style="font-size:12px; max-width:260px; line-height:1.5;">
+              <b style="color:var(--primary-color); font-size:13px;">[${item['ID USULAN'] || '-'}] ${item['USULAN'] || 'Usulan'}</b>
+              <hr style="margin:5px 0;">
+              <b>Tahun:</b> ${item['TAHUN'] || '-'}<br>
+              <b>Pengusul:</b> ${item['PENGUSUL'] || '-'} (<b>${item['DAPIL'] || '-'}</b>)<br>
+              <b>Bidang:</b> ${item['BIDANG USULAN'] || '-'}<br>
+              <b>Anggaran:</b> Rp ${parseFloat(item['ANGGARAN'] || 0).toLocaleString('id-ID')}<br>
+              <b>Status:</b> <span style="color:green; font-weight:bold;">${item['STATUS'] || '-'}</span>
+              
+              <div style="margin-top:8px; padding:6px; background:#f8f9fa; border-left:3px solid #27ae60; border-radius:3px;">
+                <b style="color:#27ae60; font-size:11px;">🗺️ ANALISIS SPATIAL TEMATIK</b><br>
+                <b>Kecamatan (Spasial):</b> KEC. ${namaKecSpasial}<br>
+                <b>Pola Ruang:</b> ${polaRuangInfo.namobj} (<code>${polaRuangInfo.kodkws}</code>)<br>
+                <b>Kemiskinan:</b> <span style="color:#c0392b;">${valKemiskinan}</span> | <b>Stunting:</b> <span style="color:#d35400;">${valStunting}</span>
+              </div>
+            </div>
+          `, {
+            autoPan: true,
+            autoPanPaddingTopLeft: L.point(20, 80),
+            autoPanPaddingBottomRight: L.point(20, 20)
+          });
+
+          markersLayerGroup.addLayer(marker);
+        }
+      });
+
+      if (currentHeatmapMode === 'off' && !map.hasLayer(markersLayerGroup)) {
+        map.addLayer(markersLayerGroup);
+      }
+    }
+
+    function updateHeatmapLayer() {
+      if (!map) return;
+
+      if (heatLayer) {
+        map.removeLayer(heatLayer);
+        heatLayer = null;
+      }
+
+      const mode = currentHeatmapMode;
+
+      if (mode === 'off') {
+        if (!map.hasLayer(markersLayerGroup)) {
+          map.addLayer(markersLayerGroup);
+        }
+        return;
+      }
+
+      if (map.hasLayer(markersLayerGroup)) {
+        map.removeLayer(markersLayerGroup);
+      }
+
+      const heatPoints = [];
+      let maxBudget = 1;
+
+      if (mode === 'budget') {
+        currentFilteredData.forEach(item => {
+          const b = parseFloat(item['ANGGARAN']) || 0;
+          if (b > maxBudget) maxBudget = b;
+        });
+      }
+
+      currentFilteredData.forEach(item => {
+        const lat = parseCoordinate(item['LATITUDE']);
+        const lng = parseCoordinate(item['LONGITUDE']);
+
+        if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+          if (mode === 'count') {
+            heatPoints.push([lat, lng, 1.0]);
+          } else if (mode === 'budget') {
+            const budget = parseFloat(item['ANGGARAN']) || 0;
+            const weight = Math.min(Math.max(budget / maxBudget, 0.4), 1.0);
+            heatPoints.push([lat, lng, weight]);
+          }
+        }
+      });
+
+      if (heatPoints.length === 0) return;
+
+      if (typeof L.heatLayer === 'function') {
+        heatLayer = L.heatLayer(heatPoints, {
+          radius: 35,
+          blur: 15,
+          maxZoom: 17,
+          max: 1.0,
+          minOpacity: 0.4,
+          gradient: {
+            0.2: '#0000ff',
+            0.4: '#00ff00',
+            0.6: '#ffff00',
+            0.8: '#ff7f00',
+            1.0: '#ff0000'
+          }
+        }).addTo(map);
+
+        if (geoJsonLayer) geoJsonLayer.bringToBack();
+      }
+    }
+
+    function zoomToMarker(latVal, lngVal, idUsulan) {
+      const lat = parseCoordinate(latVal);
+      const lng = parseCoordinate(lngVal);
+
+      if (isNaN(lat) || isNaN(lng)) {
+        alert("Koordinat tidak valid untuk usulan ini.");
+        return;
+      }
+
+      map.flyTo([lat, lng], 17, { duration: 1.5 });
+
+      markersLayerGroup.eachLayer(layer => {
+        if (layer.options.idUsulan == idUsulan) {
+          markersLayerGroup.zoomToShowLayer(layer, () => {
+            layer.openPopup();
+          });
+        }
+      });
+
+      document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function getStatusBadgeHtml(statusText) {
+      if (!statusText) return `<span class="status-badge status-default">-</span>`;
+      
+      const str = statusText.toString().trim();
+      const lower = str.toLowerCase();
+
+      if (lower.includes('setuju') || lower.includes('disetujui')) {
+        return `<span class="status-badge status-disetujui">✔ ${str}</span>`;
+      } else if (lower.includes('verifikasi') || lower.includes('proses')) {
+        return `<span class="status-badge status-verifikasi">🔄 ${str}</span>`;
+      } else if (lower.includes('kembali') || lower.includes('tolak') || lower.includes('dikembalikan')) {
+        return `<span class="status-badge status-dikembalikan">✖ ${str}</span>`;
+      } else if (lower.includes('pending') || lower.includes('tunggu')) {
+        return `<span class="status-badge status-pending">⏳ ${str}</span>`;
+      } else {
+        return `<span class="status-badge status-default">${str}</span>`;
+      }
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      const totalItems = data.length;
+      const totalPages = Math.ceil(totalItems / rowsPerPage) || 1;
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const pageData = data.slice(start, end);
+
+      if (pageData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">Data tidak ditemukan.</td></tr>';
+      } else {
+        pageData.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          const statusBadge = getStatusBadgeHtml(item['STATUS']);
+
+          tr.innerHTML = `
+            <td>${start + index + 1}</td>
+            <td><b>${item['ID USULAN'] || '-'}</b></td>
+            <td>${item['TAHUN'] || '-'}</td>
+            <td>
+              <div class="pengusul-box">
+                <span class="pengusul-nama">${item['PENGUSUL'] || '-'}</span>
+                <span class="pengusul-dapil">${item['DAPIL'] || 'DAPIL -'}</span>
+              </div>
+            </td>
+            <td>${item['BIDANG USULAN'] || '-'}</td>
+            <td class="col-usulan">${item['USULAN'] || '-'}</td>
+            <td>${item['KECAMATAN'] || '-'}</td>
+            <td>Rp ${parseFloat(item['ANGGARAN'] || 0).toLocaleString('id-ID')}</td>
+            <td>${statusBadge}</td>
+            <td>
+              <button class="btn-location" onclick="zoomToMarker('${item['LATITUDE']}', '${item['LONGITUDE']}', '${item['ID USULAN']}')">📍 Lokasi</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.getElementById('pageInfo').innerText = `Menampilkan ${totalItems > 0 ? start + 1 : 0} - ${Math.min(end, totalItems)} dari ${totalItems} data`;
+      document.getElementById('pageNumbers').innerText = `Halaman ${currentPage} dari ${totalPages}`;
+      document.getElementById('btnPrev').disabled = (currentPage === 1);
+      document.getElementById('btnNext').disabled = (currentPage >= totalPages || totalPages === 0);
+    }
+
+    function changePage(direction) {
+      const totalPages = Math.ceil(searchedData.length / rowsPerPage);
+      currentPage += direction;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      renderTable(searchedData);
+    }
+
+    function filterTable() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      searchedData = currentFilteredData.filter(item => {
+        return (item['PENGUSUL'] && item['PENGUSUL'].toLowerCase().includes(query)) ||
+               (item['USULAN'] && item['USULAN'].toLowerCase().includes(query)) ||
+               (item['KECAMATAN'] && item['KECAMATAN'].toLowerCase().includes(query)) ||
+               (item['ID USULAN'] && item['ID USULAN'].toString().toLowerCase().includes(query));
+      });
+      currentPage = 1;
+      renderTable(searchedData);
+    }
+
+    function renderChart(statusData) {
+      const ctx = document.getElementById('statusChart').getContext('2d');
+      if (statusChartInstance) statusChartInstance.destroy();
+
+      const labels = Object.keys(statusData);
+      const dataValues = Object.values(statusData);
+
+      const backgroundColors = labels.map(label => {
+        const lower = label.toLowerCase();
+        if (lower.includes('setuju') || lower.includes('disetujui')) return '#2ecc71'; 
+        if (lower.includes('verifikasi') || lower.includes('proses')) return '#3498db'; 
+        if (lower.includes('kembali') || lower.includes('dikembalikan')) return '#e74c3c'; 
+        if (lower.includes('tolak') || lower.includes('ditolak')) return '#f39c12'; 
+        if (lower.includes('pending') || lower.includes('tunggu')) return '#f1c40f'; 
+        return '#95a5a6'; 
+      });
+
+      statusChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: dataValues,
+            backgroundColor: backgroundColors,
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: { display: true, text: 'PROPORSI STATUS USULAN', font: { size: 13, weight: 'bold' } },
+            legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+          }
+        }
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById('filterTahun').value = "";
+      document.getElementById('filterDapil').value = "";
+      document.getElementById('filterPengusul').value = "";
+      document.getElementById('filterKecamatan').value = "";
+      document.getElementById('filterBidang').value = "";
+      document.getElementById('filterOpd').value = "";
+      document.getElementById('filterStatus').value = "";
+      document.getElementById('searchInput').value = "";
+      setHeatmapMode('off');
+      applyFilters();
+    }
+
+    function updateConnectionStatus(state, message) {
+      const dot = document.getElementById('statusDot');
+      const text = document.getElementById('statusText');
+      if (!dot || !text) return;
+
+      dot.className = 'status-dot';
+      if (state === 'connecting') {
+        dot.classList.add('status-connecting');
+        text.innerText = message || 'Menghubungkan...';
+        text.style.color = '#d35400';
+      } else if (state === 'connected') {
+        dot.classList.add('status-connected');
+        text.innerText = message || 'Tersambung';
+        text.style.color = '#27ae60';
+      } else if (state === 'error') {
+        dot.classList.add('status-error');
+        text.innerText = message || 'Gagal Terhubung';
+        text.style.color = '#c0392b';
+      }
+    }
+
+    window.addEventListener('resize', () => { if (map) map.invalidateSize(); });
+    window.onload = loadPokirData;
+
+    function openPrivatePrintModal() {
+      if (!currentFilteredData || currentFilteredData.length === 0) {
+        alert("Tidak ada data usulan untuk dicetak.");
+        return;
+      }
+
+      const activeToken = sessionStorage.getItem("PETIK_PRIVAT_TOKEN");
+      if (activeToken) {
+        eksporDanBukaLaporan();
+        return;
+      }
+
+      const passwordInput = prompt("🔒 PERHATIAN: Halaman ini berisi rincian privat.\n\nMasukkan Kode PIN / Password Akses BAPPPEDA:");
+      if (!passwordInput) return;
+
+      updateConnectionStatus('connecting', 'Memverifikasi Password...');
+
+      fetch(GAS_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ password: passwordInput })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "success") {
+          updateConnectionStatus('connected', 'Tersambung');
+          sessionStorage.setItem("PETIK_PRIVAT_TOKEN", res.token);
+          alert("✅ Akses Diterima! Membuka Halaman Rekapitulasi Laporan.");
+          eksporDanBukaLaporan();
+        } else {
+          updateConnectionStatus('connected', 'Tersambung');
+          alert("❌ Password salah! Akses ditolak.");
+        }
+      })
+      .catch(err => {
+        console.error("Error Auth:", err);
+        updateConnectionStatus('error', 'Gagal Verifikasi');
+        alert("Terjadi kesalahan saat memverifikasi password.");
+      });
+    }
+
+    function eksporDanBukaLaporan() {
+      localStorage.setItem("PETIK_PRINT_DATA", JSON.stringify(currentFilteredData));
+      window.open("print-rekap.html", "_blank");
+    }
+
+    function updateUrlParams() {
+      const params = new URLSearchParams();
+
+      const fTahun = document.getElementById('filterTahun').value;
+      const fDapil = document.getElementById('filterDapil').value;
+      const fPengusul = document.getElementById('filterPengusul').value;
+      const fKec = document.getElementById('filterKecamatan').value;
+      const fBidang = document.getElementById('filterBidang').value;
+      const fOpd = document.getElementById('filterOpd').value;
+      const fStatus = document.getElementById('filterStatus').value;
+
+      if (fTahun) params.set('tahun', fTahun);
+      if (fDapil) params.set('dapil', fDapil);
+      if (fPengusul) params.set('pengusul', fPengusul);
+      if (fKec) params.set('kecamatan', fKec);
+      if (fBidang) params.set('bidang', fBidang);
+      if (fOpd) params.set('opd', fOpd);
+      if (fStatus) params.set('status', fStatus);
+      if (currentHeatmapMode !== 'off') params.set('heatmap', currentHeatmapMode);
+
+      const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function readUrlParamsAndApply() {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('tahun')) document.getElementById('filterTahun').value = urlParams.get('tahun');
+      if (urlParams.has('dapil')) document.getElementById('filterDapil').value = urlParams.get('dapil');
+      if (urlParams.has('pengusul')) document.getElementById('filterPengusul').value = urlParams.get('pengusul');
+      if (urlParams.has('kecamatan')) document.getElementById('filterKecamatan').value = urlParams.get('kecamatan');
+      if (urlParams.has('bidang')) document.getElementById('filterBidang').value = urlParams.get('bidang');
+      if (urlParams.has('opd')) document.getElementById('filterOpd').value = urlParams.get('opd');
+      if (urlParams.has('status')) document.getElementById('filterStatus').value = urlParams.get('status');
+      
+      if (urlParams.has('heatmap')) {
+        setHeatmapMode(urlParams.get('heatmap'));
+      }
+    }
+
+    function shareFilterUrl() {
+      updateUrlParams();
+      const currentUrl = window.location.href;
+      
+      navigator.clipboard.writeText(currentUrl).then(() => {
+        alert("📋 Link Tampilan Terfilter Berhasil Disalin!\n\nAnda dapat mengemas atau membagikan URL berikut:\n" + currentUrl);
+      }).catch(err => {
+        prompt("Salin link filter berikut secara manual:", currentUrl);
+      });
+    }
+  </script>
+</body>
+</html>
